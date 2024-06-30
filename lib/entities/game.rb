@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Game
+  include Constants
   include InputHandler
 
   attr_accessor :player
@@ -15,6 +16,7 @@ class Game
   end
 
   def initialize
+    @bank = INITIAL_BANK
     @dealer = Dealer.new
     @player = nil
   end
