@@ -12,4 +12,8 @@ class Participant
     @cards = []
     @sum = INITIAL_SUM
   end
+
+  def skip_move; end
+
+  def add_card; end
 end
