@@ -10,4 +10,6 @@ class Player < Participant
     super
     validate!
   end
+
+  def show_cards; end
 end
