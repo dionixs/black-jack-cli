@@ -16,4 +16,7 @@ module Constants
   }.freeze
 
   CARDS = CARD_POINTS.keys
+
+  MAKE_MOVE = "1. Пропуск хода\n2. Добавить карту\n3. Открыть карты\nВыберите вариант (1-3)"
+  INPUT_ERROR = 'Ошибка ввода. Введите правильный вариант.'
 end
