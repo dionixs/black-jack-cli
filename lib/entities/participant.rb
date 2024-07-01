@@ -4,13 +4,13 @@ class Participant
   include Constants
   include Validation
 
-  attr_accessor :bank, :cards, :sum
+  attr_accessor :bank, :cards, :score
   attr_reader :name
 
   def initialize
     @bank = INITIAL_BANK
     @cards = []
-    @sum = INITIAL_SUM
+    @score = INITIAL_SUM
   end
 
   def skip_move; end
