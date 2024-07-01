@@ -5,4 +5,19 @@ class Dealer < Participant
     @name = self.class.name
     super
   end
+
+  def make_move(deck)
+    puts 'Ход противника...'
+    sleep(1)
+
+    return skip_move if score >= 17
+
+    add_card(deck)
+  end
+
+  protected
+
+  def skip_move
+    puts 'Противник передает вам ход...'
+  end
 end

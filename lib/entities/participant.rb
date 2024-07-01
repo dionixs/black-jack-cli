@@ -13,7 +13,19 @@ class Participant
     @score = INITIAL_SUM
   end
 
+  def make_move; end
+
+  protected
+
   def skip_move; end
 
-  def add_card; end
+  private
+
+  def add_card(deck)
+    return if cards.size > 3
+
+    puts "#{name} берет новую карту...."
+    sleep(1)
+    deck.deliver_card(self)
+  end
 end
