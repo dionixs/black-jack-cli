@@ -9,7 +9,7 @@ class Deck
     @cards = CARDS
   end
 
-  def deliver_card(participant, counts)
+  def deliver_card(participant, counts = 1)
     return if cards.empty?
 
     deal_cards!(counts).each do |card|
