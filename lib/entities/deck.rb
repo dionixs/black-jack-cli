@@ -12,18 +12,19 @@ class Deck
   def deliver_card(participant, counts)
     return if cards.empty?
 
-    cards = add_card!(counts)
-    participant.cards << cards
-    calculate_score!(participant, cards)
+    deal_cards!(counts).each do |card|
+      participant.cards << card
+      calculate_score!(participant, card)
+    end
   end
 
   private
 
-  def add_card!(counts = 1)
+  def deal_cards!(counts = 1)
     cards.shuffle!.pop(counts)
   end
 
-  def calculate_score!(participant, cards)
-    cards.each { |card| participant.score += CARD_POINTS[card] }
+  def calculate_score!(participant, card)
+    participant.score += CARD_POINTS[card]
   end
 end
