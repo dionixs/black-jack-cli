@@ -15,5 +15,5 @@ module Constants
     '🃗': 7, '🃘': 8, '🃙': 9,   '🃚': 10, '🃛': 10, '🃝': 10, '🃞': 10
   }.freeze
 
-  CARDS = CARD_POINTS.keys.freeze
+  CARDS = CARD_POINTS.keys
 end
