@@ -18,13 +18,13 @@ class Deck
     end
   end
 
+  def calculate_score!(participant, card)
+    participant.score += CARD_POINTS[card]
+  end
+
   private
 
   def deal_cards!(counts = 1)
     cards.shuffle!.pop(counts)
-  end
-
-  def calculate_score!(participant, card)
-    participant.score += CARD_POINTS[card]
   end
 end
