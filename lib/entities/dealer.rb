@@ -6,13 +6,13 @@ class Dealer < Participant
     super
   end
 
-  def make_move(deck)
+  def make_move(game)
     puts 'Ход противника...'
     sleep(1)
 
     return skip_move if score >= 17
 
-    add_card(deck)
+    add_card(game.deck)
   end
 
   protected
