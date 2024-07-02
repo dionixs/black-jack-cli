@@ -22,7 +22,7 @@ class Participant
   private
 
   def add_card(deck)
-    return if cards.size > 3
+    return if cards.size >= 3
 
     puts "#{name} берет новую карту...."
     sleep(1)
