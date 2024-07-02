@@ -4,7 +4,7 @@ class Game
   include Constants
   include InputHandler
 
-  attr_accessor :player, :bank, :display
+  attr_accessor :player, :bank, :display, :game_end
   attr_reader :dealer, :deck
 
   def self.initialize_game
@@ -23,6 +23,7 @@ class Game
     @dealer = Dealer.new
     @player = nil
     @display = nil
+    @game_end = false
   end
 
   def start_game
@@ -31,17 +32,42 @@ class Game
 
     loop do
       show_game
-      break if player.cards.size == 3 && dealer.cards.size == 3
+      break if game_end?
 
       begin
-        input = self.class.user_input(MAKE_MOVE).to_i
-        player.make_move(input, deck)
-        dealer.make_move(deck)
+        player.make_move(self.class.user_input(MAKE_MOVE).to_i, self)
+        if game_end?
+          show_game
+          break
+        end
+        dealer.make_move(self)
       rescue StandardError => e
         puts e.message
         retry
       end
     end
+  end
+
+  def game_end?
+    return true if (player.cards.size == 3 && dealer.cards.size == 3) || game_end
+
+    false
+  end
+
+  def winner
+    if player.score > 21
+      dealer if dealer.score <= 21
+    elsif dealer.score > 21
+      player if player.score <= 21
+    else
+      return player if player.score > dealer.score
+
+      dealer if dealer.score > player.score
+    end
+  end
+
+  def draw?
+    dealer.score == player.score
   end
 
   private
