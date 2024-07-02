@@ -13,10 +13,10 @@ class Player < Participant
     validate!
   end
 
-  def make_move(input, deck)
+  def make_move(input, game)
     raise KeyError, INPUT_ERROR unless input >= 1 && input <= 3
 
-    actions(deck).fetch(input).call
+    actions(game).fetch(input).call
   end
 
   protected
@@ -26,14 +26,17 @@ class Player < Participant
     sleep 0.5
   end
 
-  def show_cards(game); end
+  def show_cards(game)
+    game.game_end = true
+    cards.each { |card| game.deck.calculate_score!(self, card) }
+  end
 
   private
 
-  def actions(deck)
+  def actions(game)
     {
       1 => -> { skip_move },
-      2 => -> { add_card(deck) },
+      2 => -> { add_card(game.deck) },
       3 => -> { show_cards(game) }
     }
   end
