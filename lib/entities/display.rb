@@ -12,15 +12,22 @@ class Display
   def show_game
     dealer_info
     player_info
-    display_winner if game.game_end?
+    display_end_game if game.game_end?
   end
 
   private
 
-  def display_winner
-    return puts "\tНичья" if game.draw?
+  def display_end_game
+    puts "\tУ обоих игроков 3 карты! Игра окончена!" if game.three_cards?
 
+    return puts "\tИтог игры: Ничья" if game.draw?
+
+    display_winner
+  end
+
+  def display_winner
     puts "\tПобедитель игры: #{game.winner.name}"
+    puts game.winner.is_a?(Dealer) ? "\tВы проиграли :(" : "\tВы победили!"
   end
 
   def dealer_info
