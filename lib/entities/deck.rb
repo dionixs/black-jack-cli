@@ -19,12 +19,26 @@ class Deck
   end
 
   def calculate_score!(participant, card)
-    participant.score += CARD_POINTS[card]
+    participant.score += if ace?(card)
+                           ace_point(participant, card)
+                         else
+                           CARD_POINTS[card]
+                         end
   end
 
   private
 
   def deal_cards!(counts = 1)
     cards.shuffle!.pop(counts)
+  end
+
+  def ace?(card)
+    %w[🂡 🂱 🃁 🃑].include?(card)
+  end
+
+  def ace_point(participant, card)
+    return 1 if participant.score + CARD_POINTS[card] > 21
+
+    CARD_POINTS[card]
   end
 end
