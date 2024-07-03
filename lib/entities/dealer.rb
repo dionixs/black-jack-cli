@@ -7,6 +7,8 @@ class Dealer < Participant
   end
 
   def make_move(game)
+    return if game.game_end?
+
     puts 'Ход противника...'
     sleep(1)
 
