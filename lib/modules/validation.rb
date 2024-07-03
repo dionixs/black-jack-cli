@@ -25,6 +25,10 @@ module Validation
       end
     end
 
+    def valid_input?(input)
+      (input >= 1 && input <= 3) || (input == 3 && three_cards?)
+    end
+
     private
 
     def validate_presence(attribute, value)
