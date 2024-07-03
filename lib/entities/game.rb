@@ -80,11 +80,19 @@ class Game
   end
 
   def reset_game!
-    self.game_end = false
-    players.each(&:reset!)
-    deck.reset_deck!
     display.new_game
+    self.game_end = false
+    players_reset!
+    deck.reset_deck!
     setup_game
+  end
+
+  def players_reset!
+    players.each(&:reset!)
+    return unless bank_zero?
+
+    players.each(&:reset_bank!)
+    display.show_reset_bank
   end
 
   def players
