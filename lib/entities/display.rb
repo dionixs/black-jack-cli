@@ -26,6 +26,10 @@ class Display
     sleep 1
   end
 
+  def show_reset_bank
+    puts 'В банк игрока и дилера зачислено $100'
+  end
+
   private
 
   def display_end_game
