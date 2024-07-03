@@ -14,16 +14,20 @@ class Deck
 
     deal_cards!(counts).each do |card|
       participant.cards << card
-      calculate_score!(participant, card)
     end
+
+    calculate_score!(participant)
   end
 
-  def calculate_score!(participant, card)
-    participant.score += if ace?(card)
-                           ace_point(participant, card)
-                         else
-                           CARD_POINTS[card]
-                         end
+  def calculate_score!(participant)
+    participant.score = 0
+    participant.cards.each do |card|
+      participant.score += if ace?(card)
+                             ace_point(participant, card)
+                           else
+                             CARD_POINTS[card]
+                           end
+    end
   end
 
   def reset_deck
