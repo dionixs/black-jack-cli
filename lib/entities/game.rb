@@ -3,6 +3,7 @@
 class Game
   include Constants
   include InputHandler
+  include Rules
 
   attr_accessor :player, :bank, :display, :game_end
   attr_reader :dealer, :deck
@@ -29,43 +30,23 @@ class Game
   def start_game
     setup_game
     loop do
-      display.show_game
       break if game_end?
 
       make_moves
     end
   end
 
-  def game_end?
-    return true if three_cards? || game_end
-
-    false
-  end
-
-  def three_cards?
-    player.three_cards? && dealer.three_cards?
-  end
-
   def winner
-    if player.score > 21
-      self.game_end = true
-      dealer
-    elsif dealer.score > 21
-      self.game_end = true
-      player
-    elsif player.score > dealer.score
-      self.game_end = true
-      player
-    elsif dealer.score > player.score
-      self.game_end = true
-      dealer
-    else
-      self.game_end = true
-    end
-  end
+    return if draw?
 
-  def draw?
-    dealer.score == player.score
+    winner = Participant.winner
+    if winner.is_a? Player
+      player.bank = bank
+    else
+      dealer.bank = bank
+    end
+    self.game_end = true
+    winner
   end
 
   private
@@ -73,6 +54,7 @@ class Game
   def setup_game
     deal_cards(2)
     make_auto_bet
+    display.show_game
   end
 
   def make_moves
@@ -99,6 +81,6 @@ class Game
   end
 
   def players
-    [dealer, player]
+    Participant.all
   end
 end
