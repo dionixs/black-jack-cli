@@ -34,12 +34,12 @@ class Player < Participant
     sleep 1
   end
 
+  private
+
   def show_cards(game)
     game.game_end = true
     game.deck.calculate_score!(self)
   end
-
-  private
 
   def actions(game)
     {
