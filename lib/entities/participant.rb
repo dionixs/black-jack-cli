@@ -4,7 +4,7 @@ class Participant
   include Constants
   include Validation
 
-  attr_accessor :bank, :cards, :score
+  attr_accessor :bank, :cards, :score, :skipped_move
   attr_reader :name
 
   class << self
@@ -31,6 +31,7 @@ class Participant
     @bank = INITIAL_BANK_PARTICIPANT
     @cards = []
     @score = INITIAL_SCORE
+    @skipped_move = false
   end
 
   def make_move(game); end
@@ -60,9 +61,15 @@ class Participant
     @bank = INITIAL_BANK_PARTICIPANT
   end
 
+  def skipped_move?
+    @skipped_move
+  end
+
   protected
 
-  def skip_move; end
+  def skip_move
+    self.skipped_move = true
+  end
 
   private
 
