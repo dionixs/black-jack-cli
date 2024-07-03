@@ -15,6 +15,7 @@ class Dealer < Participant
     return skip_move if score >= 17
 
     add_card(game.deck)
+    game.display.show_game
   end
 
   protected

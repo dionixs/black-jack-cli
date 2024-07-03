@@ -24,13 +24,14 @@ class Player < Participant
     raise KeyError, INPUT_ERROR unless valid_input?(input)
 
     actions(game).fetch(input).call
+    game.display.show_game
   end
 
   protected
 
   def skip_move
     puts 'Передача хода противнику...'
-    sleep 0.5
+    sleep 1
   end
 
   def show_cards(game)
