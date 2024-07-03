@@ -13,7 +13,11 @@ class Participant
     @score = INITIAL_SUM
   end
 
-  def make_move; end
+  def make_move(game); end
+
+  def three_cards?
+    cards.size == 3
+  end
 
   protected
 
