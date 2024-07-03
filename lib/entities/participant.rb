@@ -36,7 +36,11 @@ class Participant
   def make_move(game); end
 
   def lose?
-    score > 21
+    score > 21 || bank <= 0
+  end
+
+  def bank_zero?
+    bank <= 0
   end
 
   def win(bank)
