@@ -8,7 +8,7 @@ class Deck
 
   def initialize(game)
     @game = game
-    @cards = CARDS
+    @cards = CARDS.shuffle
   end
 
   def deliver_card(participant, counts = 1)
@@ -35,7 +35,7 @@ class Deck
   end
 
   def reset_deck!
-    self.cards = CARDS
+    self.cards = CARDS.shuffle
   end
 
   private
