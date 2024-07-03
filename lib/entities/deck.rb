@@ -26,6 +26,10 @@ class Deck
                          end
   end
 
+  def reset_deck
+    self.cards = CARDS
+  end
+
   private
 
   def deal_cards!(counts = 1)
