@@ -10,7 +10,7 @@ class Game
   def self.initialize_game
     game = new
     game.player = Player.new { |p| p.name = user_input('Введите ваше имя') }
-    Display.welcome(game.player.name)
+    game.display = Display.new(game)
     game
   rescue StandardError => e
     puts e.message
@@ -19,50 +19,48 @@ class Game
 
   def initialize
     @bank = INITIAL_BANK
-    @deck = Deck.new
     @dealer = Dealer.new
     @player = nil
-    @display = nil
     @game_end = false
+    @display = nil
+    @deck = Deck.new(self)
   end
 
   def start_game
-    deal_cards(2)
-    make_auto_bet
-
+    setup_game
     loop do
-      show_game
+      display.show_game
       break if game_end?
 
-      begin
-        player.make_move(self.class.user_input(MAKE_MOVE).to_i, self)
-        if game_end?
-          show_game
-          break
-        end
-        dealer.make_move(self)
-      rescue StandardError => e
-        puts e.message
-        retry
-      end
+      make_moves
     end
   end
 
   def game_end?
-    return true if (player.cards.size == 3 && dealer.cards.size == 3) || game_end
+    return true if three_cards? || game_end
 
     false
   end
 
+  def three_cards?
+    player.three_cards? && dealer.three_cards?
+  end
+
   def winner
     if player.score > 21
-      dealer if dealer.score <= 21
+      self.game_end = true
+      dealer
     elsif dealer.score > 21
-      player if player.score <= 21
+      self.game_end = true
+      player
+    elsif player.score > dealer.score
+      self.game_end = true
+      player
+    elsif dealer.score > player.score
+      self.game_end = true
+      dealer
     else
-      return player if player.score > dealer.score
-
-      dealer if dealer.score > player.score
+      self.game_end = true
     end
   end
 
@@ -72,9 +70,17 @@ class Game
 
   private
 
-  def show_game
-    self.display = Display.new(self)
-    display&.show_game
+  def setup_game
+    deal_cards(2)
+    make_auto_bet
+  end
+
+  def make_moves
+    player.make_move(self, make_move_input(player))
+    dealer.make_move(self)
+  rescue StandardError => e
+    puts e.message
+    retry
   end
 
   def deal_cards(counts = 1)
