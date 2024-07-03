@@ -3,10 +3,6 @@
 class Display
   attr_reader :game, :player, :dealer
 
-  def self.welcome(name)
-    puts "Добро пожаловать в игру #{name}!"
-  end
-
   def initialize(game)
     @game = game
     @player = game.player
@@ -16,27 +12,27 @@ class Display
   def show_game
     dealer_info
     player_info
-    display_winner
+    display_winner if game.game_end?
   end
 
   private
 
   def display_winner
-    return puts 'Ничья' if game.draw?
+    return puts "\tНичья" if game.draw?
 
-    puts "Победитель игры: #{game.winner.name}"
+    puts "\tПобедитель игры: #{game.winner.name}"
   end
 
   def dealer_info
-    puts "Карты игрока #{dealer.name}: #{dealer_cards}"
+    puts "\tКарты игрока #{dealer.name}: #{dealer_cards}"
     puts dealer_score if game.game_end?
-    puts "Банк игрока #{dealer.name}: #{dealer.bank}"
+    puts "\tБанк игрока #{dealer.name}: #{dealer.bank}"
   end
 
   def player_info
-    puts "Ваши карты: #{player_cards}"
-    puts "Ваша сумма очков: #{player.score}"
-    puts "Ваш банк: #{player.bank}"
+    puts "\tВаши карты: #{player_cards}"
+    puts "\tВаша сумма очков: #{player.score}"
+    puts "\tВаш банк: #{player.bank}"
   end
 
   def dealer_cards
@@ -48,7 +44,7 @@ class Display
   end
 
   def dealer_score
-    "Сумма очков игрока #{dealer.name}: #{dealer.score}"
+    "\tСумма очков игрока #{dealer.name}: #{dealer.score}"
   end
 
   def player_cards
