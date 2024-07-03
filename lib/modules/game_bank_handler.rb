@@ -2,24 +2,25 @@
 
 module GameBankHandler
   def make_auto_bet
-    puts 'Автоматическая ставка в банк игры...'
+    puts 'Автоматическая ставка $10 в банк игры...'
     make_auto_bet!
     sleep 1
   end
 
   def calculate_bank!
-    calculate_bank_for_draw if draw?
+    return calculate_bank_for_draw if draw?
 
     if winner.is_a? Player
       player.win(bank)
     elsif winner.is_a? Dealer
       dealer.win(bank)
     end
+    self.bank = 0
   end
 
   def calculate_bank_for_draw
+    players.each { |player| player.bank += (bank / 2) }
     self.bank = 0
-    players.each { |player| player.bank += 10 }
   end
 
   def make_auto_bet!
