@@ -2,7 +2,7 @@
 
 module GameBankHandler
   def make_auto_bet
-    puts 'Автоматическая ставка $10 в банк игры...'
+    puts 'Автоматическая ставка $10 игрока и дилера в банк игры...'
     make_auto_bet!
     sleep 1
   end
