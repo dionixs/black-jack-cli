@@ -7,13 +7,20 @@ class Player < Participant
 
   validate :name, presence: true, length: { min: 2, max: 50 }
 
+  def self.welcome(name)
+    puts "Добро пожаловать в игру #{name}!"
+  end
+
   def initialize
     yield self if block_given?
     super
     validate!
+    self.class.welcome(name)
   end
 
-  def make_move(input, game)
+  def make_move(game, input)
+    return if game.game_end?
+
     raise KeyError, INPUT_ERROR unless input >= 1 && input <= 3
 
     actions(game).fetch(input).call
