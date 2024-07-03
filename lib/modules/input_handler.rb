@@ -23,6 +23,14 @@ module InputHandler
 
     private
 
+    def rematch_input
+      message = 'Вы хотите сыграть еще раз? (Y/n)'
+      input = self.class.user_input(message).downcase
+      raise 'Введите корректное значение!' if input != 'y' && input != 'n'
+
+      input
+    end
+
     def message(player)
       player.three_cards? ? MAKE_MOVE_WITHOUT_ADD_CARD : MAKE_MOVE
     end
