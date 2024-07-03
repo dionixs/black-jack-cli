@@ -26,7 +26,7 @@ module Validation
     end
 
     def valid_input?(input)
-      (input >= 1 && input <= 3) || (input == 3 && three_cards?)
+      input >= 1 && input <= 3
     end
 
     private
