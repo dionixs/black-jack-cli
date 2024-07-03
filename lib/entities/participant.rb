@@ -12,6 +12,8 @@ class Participant
       ObjectSpace.each_object(self).to_a
     end
 
+    private
+
     def winner
       participants = all
       player = participants.find { |p| p.is_a?(Player) }
@@ -26,9 +28,9 @@ class Participant
   end
 
   def initialize
-    @bank = INITIAL_BANK
+    @bank = INITIAL_BANK_PARTICIPANT
     @cards = []
-    @score = INITIAL_SUM
+    @score = INITIAL_SCORE
   end
 
   def make_move(game); end
@@ -43,6 +45,11 @@ class Participant
 
   def three_cards?
     cards.size == 3
+  end
+
+  def reset!
+    @cards = []
+    @score = INITIAL_SCORE
   end
 
   protected
