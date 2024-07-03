@@ -12,6 +12,7 @@ class Display
   def show_game
     dealer_info
     player_info
+    puts "\tБанк игры: $#{game.bank}"
     display_end_game if game.game_end?
   end
 
@@ -43,13 +44,13 @@ class Display
   def dealer_info
     puts "\tКарты игрока #{dealer.name}: #{dealer_cards}"
     puts dealer_score if game.game_end?
-    puts "\tБанк игрока #{dealer.name}: #{dealer.bank}"
+    puts "\tБанк игрока #{dealer.name}: $#{dealer.bank}\n"
   end
 
   def player_info
     puts "\tВаши карты: #{player_cards}"
     puts "\tВаша сумма очков: #{player.score}"
-    puts "\tВаш банк: #{player.bank}"
+    puts "\tВаш банк: $#{player.bank}"
   end
 
   def dealer_cards
