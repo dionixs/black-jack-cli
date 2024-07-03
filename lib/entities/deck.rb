@@ -34,7 +34,7 @@ class Deck
     end
   end
 
-  def reset_deck
+  def reset_deck!
     self.cards = CARDS
   end
 
