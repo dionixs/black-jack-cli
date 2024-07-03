@@ -18,7 +18,7 @@ class Display
   def show_taken_card(card)
     puts "Вы взяли карту: #{card}"
 
-    sleep 0.5
+    sleep 1
   end
 
   private
