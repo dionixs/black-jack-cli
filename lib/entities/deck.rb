@@ -4,8 +4,10 @@ class Deck
   include Constants
 
   attr_accessor :cards
+  attr_reader :game
 
-  def initialize
+  def initialize(game)
+    @game = game
     @cards = CARDS
   end
 
@@ -14,6 +16,8 @@ class Deck
 
     deal_cards!(counts).each do |card|
       participant.cards << card
+
+      game.display.show_taken_card(card) if participant.is_a?(Player)
     end
 
     calculate_score!(participant)

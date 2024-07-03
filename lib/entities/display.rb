@@ -15,6 +15,12 @@ class Display
     display_end_game if game.game_end?
   end
 
+  def show_taken_card(card)
+    puts "Вы взяли карту: #{card}"
+
+    sleep 0.5
+  end
+
   private
 
   def display_end_game
