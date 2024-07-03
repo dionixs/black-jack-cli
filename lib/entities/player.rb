@@ -24,7 +24,7 @@ class Player < Participant
     raise KeyError, INPUT_ERROR unless valid_input?(input)
 
     actions(game).fetch(input).call
-    game.display.show_game
+    game.display.show_game unless game.game_end?
   end
 
   protected
