@@ -12,6 +12,10 @@ module Rules
     player.three_cards? && dealer.three_cards?
   end
 
+  def bank_zero?
+    player.bank_zero? || dealer.bank_zero?
+  end
+
   def draw?
     dealer.score == player.score
   end
