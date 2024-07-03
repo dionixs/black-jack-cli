@@ -17,7 +17,11 @@ class Display
 
   def show_taken_card(card)
     puts "Вы взяли карту: #{card}"
+    sleep 1
+  end
 
+  def new_game
+    puts 'Вы начали новую игру!'
     sleep 1
   end
 
