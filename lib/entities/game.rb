@@ -4,6 +4,7 @@ class Game
   include Constants
   include InputHandler
   include Rules
+  include GameBankHandler
 
   attr_accessor :player, :bank, :display, :game_end
   attr_reader :dealer, :deck
@@ -19,7 +20,7 @@ class Game
   end
 
   def initialize
-    @bank = INITIAL_BANK
+    @bank = INITIAL_GAME_BANK
     @dealer = Dealer.new
     @player = nil
     @game_end = false
@@ -28,25 +29,18 @@ class Game
   end
 
   def start_game
-    setup_game
+    block_given? ? yield : setup_game
     loop do
-      break if game_end?
-
+      if game_end?
+        game_results
+        break
+      end
       make_moves
     end
   end
 
   def winner
-    return if draw?
-
-    winner = Participant.winner
-    if winner.is_a? Player
-      player.bank = bank
-    else
-      dealer.bank = bank
-    end
-    self.game_end = true
-    winner
+    Participant.send(:winner)
   end
 
   private
@@ -71,13 +65,26 @@ class Game
     sleep 1
   end
 
-  def make_auto_bet
-    puts 'Автоматическая ставка в банк игры...'
-    players.each do |player|
-      player.bank -= 10
-      self.bank += 10
-    end
-    sleep 1
+  def game_results
+    calculate_bank!
+    display.show_game
+    new_game
+  end
+
+  def new_game
+    input = rematch_input
+    start_game { reset_game! } if input.downcase == 'y'
+  rescue StandardError => e
+    puts e.message
+    retry
+  end
+
+  def reset_game!
+    self.game_end = false
+    players.each(&:reset!)
+    deck.reset_deck!
+    display.new_game
+    setup_game
   end
 
   def players
