@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 module Constants
-  INITIAL_BANK = 100
-  INITIAL_SUM = 0
+  INITIAL_BANK_PARTICIPANT = 100
+  INITIAL_GAME_BANK = 0
+  INITIAL_SCORE = 0
 
   CARD_POINTS = {
     '🂡': 11, '🂢': 2, '🂣': 3,  '🂤': 4,  '🂥': 5,  '🂦': 6,
