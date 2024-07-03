@@ -36,7 +36,7 @@ class Participant
   def make_move(game); end
 
   def lose?
-    score > 21 || bank <= 0
+    score > 21 || bank_zero?
   end
 
   def bank_zero?
@@ -54,6 +54,10 @@ class Participant
   def reset!
     @cards = []
     @score = INITIAL_SCORE
+  end
+
+  def reset_bank!
+    @bank = INITIAL_BANK_PARTICIPANT
   end
 
   protected
