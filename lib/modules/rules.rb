@@ -2,7 +2,8 @@
 
 module Rules
   def game_end?
-    return true if three_cards? || game_end
+    return true if three_cards? || game_end ||
+                   player.bank_zero? || dealer.bank_zero?
 
     false
   end
