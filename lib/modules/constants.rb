@@ -18,7 +18,8 @@ module Constants
 
   CARDS = CARD_POINTS.keys
 
-  MAKE_MOVE = "1. Пропуск хода\t\t2. Открыть карты\t3. Добавить карту\nВыберите вариант (1-3)"
-  MAKE_MOVE_WITHOUT_ADD_CARD = "1. Пропуск хода\t\t2. Открыть карты\nВыберите вариант (1-2)"
+  MAKE_FIRST_MOVE = "skip move - Пропуск хода\tadd card - Добавить карту\nВыберите вариант"
+  MAKE_MOVE_WITHOUT_ADD_CARD = "skip move - Пропуск хода\tshow cards - Открыть карты\nВыберите вариант"
+  MAKE_MOVE_WITHOUT_SKIP_MOVE = "show cards - Открыть карты\tadd card Добавить карту\nВыберите вариант"
   INPUT_ERROR = 'Ошибка ввода. Введите правильный вариант.'
 end
