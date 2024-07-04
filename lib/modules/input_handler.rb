@@ -18,7 +18,7 @@ module InputHandler
 
     def make_move_input(player)
       message = message(player)
-      self.class.user_input(message).to_i
+      self.class.user_input(message).gsub(' ', '_').to_sym
     end
 
     private
@@ -32,7 +32,11 @@ module InputHandler
     end
 
     def message(player)
-      player.three_cards? ? MAKE_MOVE_WITHOUT_ADD_CARD : MAKE_MOVE
+      return MAKE_FIRST_MOVE if player.first_move?
+
+      return MAKE_MOVE_WITHOUT_ADD_CARD if player.three_cards?
+
+      MAKE_MOVE_WITHOUT_SKIP_MOVE if player.skipped_move?
     end
   end
 end
