@@ -3,6 +3,7 @@
 class Player < Participant
   include InputHandler
 
+  attr_accessor :first_move
   attr_writer :name
 
   validate :name, presence: true, length: { min: 2, max: 50 }
@@ -12,6 +13,7 @@ class Player < Participant
   end
 
   def initialize
+    @first_move = true
     yield self if block_given?
     super
     validate!
@@ -27,25 +29,45 @@ class Player < Participant
     game.display.show_game unless game.game_end?
   end
 
+  def first_move?
+    @first_move
+  end
+
+  def reset!
+    super
+    @first_move = true
+  end
+
   protected
 
   def skip_move
+    return if skipped_move?
+
+    super
+    self.first_move = false
     puts 'Передача хода противнику...'
     sleep 1
+  end
+
+  def add_card(deck)
+    super
+    self.first_move = false
   end
 
   private
 
   def show_cards(game)
+    return if first_move?
+
     game.game_end = true
     game.deck.calculate_score!(self)
   end
 
   def actions(game)
     {
-      1 => -> { skip_move },
-      2 => -> { show_cards(game) },
-      3 => -> { add_card(game.deck) }
+      skip_move: -> { skip_move },
+      add_card: -> { add_card(game.deck) },
+      show_cards: -> { show_cards(game) }
     }
   end
 end
