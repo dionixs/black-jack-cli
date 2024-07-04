@@ -55,6 +55,7 @@ class Participant
   def reset!
     @cards = []
     @score = INITIAL_SCORE
+    @skipped_move = false
   end
 
   def reset_bank!
@@ -70,8 +71,6 @@ class Participant
   def skip_move
     self.skipped_move = true
   end
-
-  private
 
   def add_card(deck)
     return if cards.size >= 3
