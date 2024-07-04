@@ -1,1 +1,1 @@
-# black-jack-cli
+# Игра Black Jack
