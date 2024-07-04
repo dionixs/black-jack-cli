@@ -12,7 +12,7 @@ class Dealer < Participant
     puts 'Ход противника...'
     sleep(1)
 
-    return skip_move if score >= 17
+    return skip_move if score >= 17 && !skipped_move?
 
     add_card(game.deck)
     game.display.show_game unless game.game_end?
@@ -21,6 +21,7 @@ class Dealer < Participant
   protected
 
   def skip_move
+    super
     puts 'Противник передает вам ход...'
   end
 end
