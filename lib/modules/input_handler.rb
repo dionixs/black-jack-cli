@@ -26,7 +26,7 @@ module InputHandler
     def rematch_input
       message = 'Вы хотите сыграть еще раз? (Y/n)'
       input = self.class.user_input(message).downcase
-      raise 'Введите корректное значение!' if input != 'y' && input != 'n'
+      raise INPUT_ERROR if input != 'y' && input != 'n'
 
       input
     end
