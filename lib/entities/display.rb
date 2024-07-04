@@ -26,6 +26,11 @@ class Display
     sleep 1
   end
 
+  def new_party
+    puts 'Вы начали новую партию!'
+    sleep 1
+  end
+
   def show_reset_bank
     puts 'В банк игрока и дилера зачислено $100'
   end
