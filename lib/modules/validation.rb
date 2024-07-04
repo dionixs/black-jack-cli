@@ -26,7 +26,9 @@ module Validation
     end
 
     def valid_input?(input)
-      input >= 1 && input <= 3
+      first_move? && %i[skip_move add_card].include?(input) ||
+        three_cards? && %i[skip_move show cards].include?(input) ||
+        skipped_move? && %i[show_cards add_card].include?(input)
     end
 
     private
