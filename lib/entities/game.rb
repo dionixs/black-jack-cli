@@ -80,7 +80,7 @@ class Game
   end
 
   def reset_game!
-    display.new_game
+    bank_zero? ? display.new_game : display.new_party
     self.game_end = false
     players_reset!
     deck.reset_deck!
