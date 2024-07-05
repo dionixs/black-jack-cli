@@ -16,6 +16,8 @@ module Constants
     '🃗': 7,  '🃘': 8, '🃙': 9,  '🃚': 10, '🃛': 10, '🃝': 10, '🃞': 10
   }.freeze
 
+  ACES = %w[🂡 🂱 🃁 🃑].freeze
+
   CARDS = CARD_POINTS.keys
 
   MAKE_FIRST_MOVE = "skip move - Пропуск хода\tadd card - Добавить карту\nВыберите вариант"
