@@ -24,14 +24,8 @@ class Deck
   end
 
   def calculate_score!(participant)
-    participant.score = 0
-    participant.cards.each do |card|
-      participant.score += if ace?(card)
-                             ace_point(participant, card)
-                           else
-                             CARD_POINTS[card]
-                           end
-    end
+    participant.score = participant.cards.reduce(0) { |sum, card| sum + CARD_POINTS[card] }
+    correct_score_for_aces!(participant)
   end
 
   def reset_deck!
@@ -45,12 +39,12 @@ class Deck
   end
 
   def ace?(card)
-    %w[🂡 🂱 🃁 🃑].include?(card)
+    ACES.include?(card)
   end
 
-  def ace_point(participant, card)
-    return 1 if participant.score + CARD_POINTS[card] > 21
-
-    CARD_POINTS[card]
+  def correct_score_for_aces!(participant)
+    participant.cards.count { |card| ace?(card) }.times do
+      participant.score -= 10 if participant.score > 21
+    end
   end
 end
