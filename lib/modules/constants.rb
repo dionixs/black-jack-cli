@@ -16,7 +16,7 @@ module Constants
     '🃗': 7,  '🃘': 8, '🃙': 9,  '🃚': 10, '🃛': 10, '🃝': 10, '🃞': 10
   }.freeze
 
-  ACES = %w[🂡 🂱 🃁 🃑].freeze
+  ACES = %i[🂡 🂱 🃁 🃑].freeze
 
   CARDS = CARD_POINTS.keys
 
