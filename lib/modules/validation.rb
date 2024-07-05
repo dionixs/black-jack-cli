@@ -27,7 +27,7 @@ module Validation
 
     def valid_input?(input)
       first_move? && %i[skip_move add_card].include?(input) ||
-        three_cards? && %i[skip_move show cards].include?(input) ||
+        three_cards? && %i[skip_move show_cards].include?(input) ||
         skipped_move? && %i[show_cards add_card].include?(input)
     end
 
